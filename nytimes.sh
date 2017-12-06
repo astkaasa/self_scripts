@@ -42,10 +42,8 @@ while [[ $start_date -le $end_date ]]; do
        echo $url >> log
     done
   fi
-  # dir_name="The_New_York_Times($(echo $start_date | gdate -f - +'%Y-%m-%d'))"
-  # mv -f "${start_date}" "${dir_name}"
-  # cd "${dir_name}"
   i=1; for x in `ls -1 *page[1-9].pdf`; do mv -f $x $(echo $x | awk -v i="$i" -F'page' '{print $1"page0"i".pdf"}'); i=$((++i)); done
+  # sudo ln -s "/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py" PDFconcat
   PDFconcat -o "${dir_name}.pdf" *.pdf
   start_date=$(date -j -v +1d -f "%Y%m%d" "$start_date" +%Y%m%d)
   cd ~/Desktop/nytimes
